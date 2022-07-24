@@ -13,10 +13,14 @@ hoa = []
 sinh = []
 anh = []
 gdcd = []
+stt = []
+
+# 15015883
+start = 15007000
+end = 15007999
 
 
-
-for idx in range(15000001, 15015883):
+for idx in range(start, end):
     page = requests.get("https://vietnamnet.vn/giao-duc/diem-thi/tra-cuu-diem-thi-tot-nghiep-thpt/2022/{}.html".format(idx))
     if page.status_code != 404:
         print("[GET] {}/15015883".format(idx))
@@ -33,7 +37,7 @@ for idx in range(15000001, 15015883):
                 if element[0].text == key:
                     
                     subjects[key] = element[1].text
-
+        stt.append(idx)
         toan.append(subjects["Toán"])
         van.append(subjects["Văn"])
         su.append(subjects['Sử'])
@@ -47,7 +51,8 @@ for idx in range(15000001, 15015883):
     else:
         print("[INFO] {}/15015883: no data".format(idx))
 
-data = pd.DataFrame({"SBD":idx,
+
+data = pd.DataFrame({"SBD":stt,
                     "Toán":toan,
                     "Ngữ Văn":van,
                     "Tiếng Anh":anh,
